@@ -189,7 +189,7 @@ collisionMap.forEach((row, i) => {
                 movableItem.position.x -= movementD + movementA
                 movableItem.position.y += movementW + movementS
                 
-                if(movementW+movementA+movementS+movementD !== 0){
+                if(movementW || movementA || movementS || movementD !== 0){
                     moving = true
                     mainChar.moving = true
                 } else {
