@@ -23,13 +23,24 @@ const playerLeft = new Image()
 playerLeft.src = "./img/playerLeft.png"
 
 
-
-
 context.fillRect(0,0,canvas.width, canvas.height)
 
 const offsetX = -1185;
 const offsetY= -500
 
+const villager = new Propiedades({
+
+    position:{
+        x: 500,
+        y: 700
+        },
+    frames:{
+        default:4,
+    },
+    
+        image:playerUp
+          
+})
 const mainChar = new Propiedades({
     position:{
         x:canvas.width / 2 - 192 / 3, 
@@ -47,6 +58,9 @@ const mainChar = new Propiedades({
     }  
 })
 
+console.log(villager)
+console.log(mainChar)
+
 const background = new Propiedades({
     position:{
     x: offsetX,
@@ -55,7 +69,6 @@ const background = new Propiedades({
     
     image:imagen
     })
-
 
 const foreground = new Propiedades({
     position:{
@@ -92,18 +105,15 @@ collisionMap.forEach((row, i) => {
 
 ))}})})
 
-    const movableItem = [background, ...boundaries, foreground]
+    const movableItem = [background, ...boundaries, foreground,villager]
 
-    function checkCollision({e1,e2}){
-        return   (e1.position.x + e1.width >= e2.position.x &&
-                  e1.position.x <= e2.position.x + e2.width &&
-                  e1.position.y <= e2.position.y + e2.height &&
-                  e1.position.y + e1.height >= e2.position.y)
+    function checkCollision({e1,e2},radius){
+        return   (e1.position.x + e1.width >= (e2.position.x + radius) &&
+                  e1.position.x <= (e2.position.x + radius) + e2.width &&
+                  e1.position.y <= (e2.position.y + radius) + e2.height &&
+                  e1.position.y + e1.height >= (e2.position.y + radius))
     }
 
-   
-    let moving  = false
-    
     function move(){
 
         let movementW = 0
@@ -135,7 +145,7 @@ collisionMap.forEach((row, i) => {
                    x: boundary.position.x,
                    y: boundary.position.y + 3,
                  }}
-                }
+                },0
                 )){
                     movementW = 0
                 }
@@ -149,7 +159,7 @@ collisionMap.forEach((row, i) => {
                      x: boundary.position.x + 3,
                     y: boundary.position.y,
                     }}
-                 }
+                 },0
                 )){
                         movementA = 0
                  }   
@@ -164,7 +174,7 @@ collisionMap.forEach((row, i) => {
                        x: boundary.position.x,
                        y: boundary.position.y - 3,
                      }}
-                    }
+                    },0
                     )){
                         movementS = 0
                     }
@@ -178,48 +188,32 @@ collisionMap.forEach((row, i) => {
                          x: boundary.position.x - 3,
                         y: boundary.position.y,
                         }}
-                     }
+                     },0
                     )){
                             movementD = 0
-                     } 
-                        
-         }
-
+                     }    
+        }
             movableItem.forEach((movableItem) =>{
                 movableItem.position.x -= movementD + movementA
                 movableItem.position.y += movementW + movementS
                 
                 if(movementW || movementA || movementS || movementD !== 0){
-                    moving = true
+        
                     mainChar.moving = true
                 } else {
-                    moving = false
+                   
                     mainChar.moving = false
                 }
-
-                
-
-                if(teclas.A) mainChar.image = playerLeft
-                if(teclas.D) mainChar.image = playerRight
+     
                 if(teclas.W) mainChar.image = playerUp
                 if(teclas.S) mainChar.image = playerDown
+                if(teclas.A) mainChar.image = playerLeft
+                if(teclas.D) mainChar.image = playerRight
 
                 })
-
-            
-
     }
 
-    
-
-    
-  
-
 function animation(){
-
-    console.log(moving)
-
-    
     
     window.requestAnimationFrame(animation) 
     
@@ -230,24 +224,19 @@ function animation(){
     
     })
 
+    villager.draw()
+
     mainChar.draw()
 
-     foreground.draw()
-  
+    foreground.draw()
     
   if(sidebar.classList.contains('off')){
-
     move()
-
-     
-        
-    
- 
-    
-}
-}
+}}
 
 animation()
+
+
 
 
 
