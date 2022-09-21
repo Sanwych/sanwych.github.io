@@ -30,7 +30,7 @@ const offsetY= -500
 
 const villager = new Propiedades({
 
-    position:{
+   position:{
         x: 500,
         y: 700
         },
