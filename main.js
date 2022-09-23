@@ -127,10 +127,10 @@ collisionMap.forEach((row, i) => {
         if(teclas.D) movementD +=3
 
         if(movementW + movementS !== 0 && movementA + movementD !== 0 ){
-            movementW *= 0.7
-            movementA *= 0.7
-            movementS *= 0.7
-            movementD *= 0.7
+            movementW /= 1.5
+            movementA /= 1.5
+            movementS /= 1.5
+            movementD /= 1.5
         } 
 
         for(let i = 0; i < boundaries.length;i++){
