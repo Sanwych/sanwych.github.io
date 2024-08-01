@@ -28,19 +28,6 @@ context.fillRect(0,0,canvas.width, canvas.height)
 const offsetX = -1185;
 const offsetY= -500
 
-const villager = new Propiedades({
-
-   position:{
-        x: 500,
-        y: 700
-        },
-    frames:{
-        default:4,
-    },
-    
-        image:playerUp
-          
-})
 const mainChar = new Propiedades({
     position:{
         x:canvas.width / 2 - 192 / 3, 
@@ -58,7 +45,7 @@ const mainChar = new Propiedades({
     }  
 })
 
-console.log(villager)
+
 console.log(mainChar)
 
 const background = new Propiedades({
@@ -105,7 +92,7 @@ collisionMap.forEach((row, i) => {
 
 ))}})})
 
-    const movableItem = [background, ...boundaries, foreground,villager]
+    const movableItem = [background, ...boundaries, foreground]
 
     function checkCollision({e1,e2},radius){
         return   (e1.position.x + e1.width >= (e2.position.x + radius) &&
@@ -223,8 +210,6 @@ function animation(){
         boundary.draw()    
     
     })
-
-    villager.draw()
 
     mainChar.draw()
 
